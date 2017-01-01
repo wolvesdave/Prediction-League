@@ -1,0 +1,15 @@
+<!doctype HTML>
+<html>
+  <head><title>Game Picker</title></head>
+  <body>
+     <form action="/storeprediction" method="POST">
+        <p>Pick a game!</p>
+        {% for game in games %}
+          <p>
+            <input type="radio" name="game" value="{{game}}"/>{{game}}
+          </p>
+        {% endfor %}
+        <input type="submit" value="Submit"/>
+     </form>
+  </body>
+</html>
