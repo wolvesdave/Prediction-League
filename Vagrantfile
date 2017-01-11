@@ -3,7 +3,12 @@ Vagrant.configure(2) do |config|
   # config.vm.provision :shell, path: "bootstrap.sh"
   config.vm.provision "shell", inline: <<-SHELL
   sudo apt-get update
-  sudo apt-get install -y build-essential libssl-dev
+  sudo apt-get install build-essential checkinstall
+  sudo apt-get install libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
+  sudo apt-get install python-pip
+  sudo pip install pymongo
+  sudo apt-get install libxml2-dev libxslt1-dev python-dev
+  sudo apt-get install python-lxml
   curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
   sudo apt-get install -y nodejs
   sudo npm install -y jasmine-node -g
