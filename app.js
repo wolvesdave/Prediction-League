@@ -27,6 +27,7 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
         var userEmail = req.query.userEmail;
         var round = parseInt(req.query.round);
         db.collection('predictions').find({ Round : round , userEmail : userEmail}).toArray(function(err, docs) {
+            res.set('Content-Type','application/json');
             res.render('predictions', { 'userEmail' : userEmail, 'round' : round , 'predictions': docs } );
         });
     });
@@ -34,6 +35,7 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
     app.get('/viewscores/:name', function(req, res){
       var name = req.params.name;
       var round = req.query.round;
+      res.set('Content-Type','application/json');
       res.render('scores', { name : name, round : round });
     });
 
@@ -41,7 +43,9 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
       var round = req.params.round;
       console.log("about to check fixtures for ", round);
       db.collection('fixtures').find({Round : round}).toArray(function(err, docs) {
-          res.render('fixtures', { 'round' : round , 'fixtures': docs } );
+          res.set('Content-Type','application/json');
+          res.send(200, docs );
+          /* res.render('fixtures', { 'round' : round , 'fixtures': docs } ); */
       });
     });
 
