@@ -55,7 +55,7 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
       console.log("about to check fixtures for ", round);
       db.collection('fixtures').find({Round : round}).toArray(function(err, docs) {
           res.set('Content-Type','application/json');
-          res.send(200, docs );
+          res.status(200).send(docs );
           /* res.render('fixtures', { 'round' : round , 'fixtures': docs } ); */
       });
     });
@@ -89,7 +89,7 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
         	          res.render('data',{objects: objs, collection: req.params.collection}); //F
                   } else {
     	          res.set('Content-Type','application/json'); //G
-                      res.send(200, objs); //H
+                      res.status(200).send(objs); //H
                   }
              }
        	});
@@ -101,21 +101,21 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
        var collection = params.collection;
        if (entity) {
            collectionDriver.get(collection, entity, function(error, objs) { //J
-              if (error) { res.send(400, error); }
-              else { res.send(200, objs); } //K
+              if (error) { res.status(400).send(error); }
+              else { res.status(200).send(objs); } //K
            });
        } else {
-          res.send(400, {error: 'bad url', url: req.url});
+          res.status(400).send({error: 'bad url', url: req.url});
        }
     });
 
     app.post('/:collection', function(req, res) { //A
         var object = req.body;
         var collection = req.params.collection;
-        console.log("doing POST to collection " + collection)
+        console.log("doing POST to collection " + collection + " with body " + req.body)
         collectionDriver.save(collection, object, function(err,docs) {
-              if (err) { res.send(400, err); }
-              else { res.send(201, docs); } //B
+              if (err) { res.status(400).send(err); }
+              else { res.status(201).send(docs); } //B
          });
     });
 
@@ -125,12 +125,12 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
         var collection = params.collection;
         if (entity) {
            collectionDriver.update(collection, req.body, entity, function(error, objs) { //B
-              if (error) { res.send(400, error); }
-              else { res.send(200, objs); } //C
+              if (error) { res.status(400).send(error); }
+              else { res.status(200).send(objs); } //C
            });
        } else {
     	   var error = { "message" : "Cannot PUT a whole collection" }
-    	   res.send(400, error);
+    	   res.status(400).send(error);
        }
     });
 
@@ -140,12 +140,12 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
         var collection = params.collection;
         if (entity) {
            collectionDriver.delete(collection, entity, function(error, objs) { //B
-              if (error) { res.send(400, error); }
-              else { res.send(200, objs); } //C 200 b/c includes the original doc
+              if (error) { res.status(400).send(error); }
+              else { res.status(200).send(objs); } //C 200 b/c includes the original doc
            });
        } else {
            var error = { "message" : "Cannot DELETE a whole collection" }
-           res.send(400, error);
+           res.status(400).send(error);
        }
     });
 

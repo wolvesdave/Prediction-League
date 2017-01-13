@@ -45,7 +45,7 @@ CollectionDriver.prototype.save = function(collectionName, obj, callback) {
       if( error ) callback(error)
       else {
         obj.created_at = new Date(); //B
-        console.log('inserting ' + obj);
+        console.log('inserting ' + obj.HomeTeam);
         the_collection.insert(obj, function() { //C
           callback(null, obj);
         });
