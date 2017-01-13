@@ -1,0 +1,12 @@
+<head>
+<style>
+body { font-family: 'Helvetica', 'Arial', sans-serif; }
+</style>
+</head>
+
+<h1>Documents found in collection {{collection}}</h1>
+{% for object in objects %}
+  <li>{{ object.HomeTeam }} {{ object.AwayTeam }}</li>
+{% else %}
+  <li>No objects found.</li>
+{% endfor %}
