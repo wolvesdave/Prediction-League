@@ -14,6 +14,7 @@ app.engine('html', engines.nunjucks);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, db) {
 
@@ -112,7 +113,6 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
     app.post('/:collection', function(req, res) { //A
         var object = req.body;
         var collection = req.params.collection;
-        console.log("doing POST to collection " + collection + " with body " + req.body)
         collectionDriver.save(collection, object, function(err,docs) {
               if (err) { res.status(400).send(err); }
               else { res.status(201).send(docs); } //B
