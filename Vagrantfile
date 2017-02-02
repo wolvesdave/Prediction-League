@@ -28,10 +28,10 @@ Vagrant.configure(2) do |config|
   sudo apt-get install -y mongodb-enterprise
   sudo mkdir -p /data/db
   sudo apt-get install -y git
-  mkdir /home/vagrant/Projects
-  cd /home/vagrant/Projects
+  cd /vagrant
   sudo mongod &
   SHELL
   config.vm.network :forwarded_port, guest: 3000, host: 3000
   config.vm.network :forwarded_port, guest: 27017, host: 27017
+  config.vm.network :forwarded_port, guest: 8080, host: 8080
 end

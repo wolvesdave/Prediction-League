@@ -12,7 +12,6 @@ var schema = new mongoose.Schema({
         "Location" : { type : String,  trim: true },
         "MatchDate" : Date,
         "Round" : Number
-    }
-    );
+});
 
-      module.exports = mongoose.model('Fixture',schema);   
+module.exports = mongoose.model('Fixture',schema);
