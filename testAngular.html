@@ -1,0 +1,21 @@
+<html ng-app="app">
+
+<head>
+	<title>Enter Predictions</title>
+</head>
+
+<body ng-controller="PredictionController">
+  <ul>
+    <li ng-repeat="prediction in predictions">
+      <input type="number" ng-model="prediction.homescore">
+      {{ prediction.home }}
+      <input type="number" ng-model="prediction.awayscore">
+      {{ prediction.away }}
+    </li>
+  </ul>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+
+</body>
+
+</html>
