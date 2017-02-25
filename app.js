@@ -5,67 +5,78 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     MongoClient = require('mongodb').MongoClient,
     assert = require('assert');
+    nunjucks = require('nunjucks');
+
+var index = require('./routes/index');
+var users = require('./routes/users');
+var predictions = require('./routes/predictions');
+var fixtures = require('./routes/fixtures');
+
+var env = nunjucks.configure('/path/to/templates', {
+      tags: {
+        // or whatever other tag markers you'd like to use
+        blockStart: '<%',
+        blockEnd: '%>',
+        variableStart: '<$',
+        variableEnd: '$>',
+        commentStart: '<#',
+        commentEnd: '#>'
+      }
+    });
+
+// load mongoose package
+var mongoose = require('mongoose');
+
+// Use native Node promises
+mongoose.Promise = global.Promise;
+
+// connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/predictionleague')
+  .then(() =>  console.log('connection succesful'))
+  .catch((err) => console.error(err));
 
 app.engine('html', engines.nunjucks);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 app.use(bodyParser.urlencoded({ extended: true }));
 
-MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, db) {
+app.use('/', index);
+app.use('/users', users);
+app.use('/fixtures', fixtures);
+app.use('/predictions', predictions);
 
-    assert.equal(null, err);
-    console.log("Successfully connected to MongoDB.");
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
-    // Handler for internal server errors
-    function errorHandler(err, req, res, next) {
-        console.error(err.message);
-        console.error(err.stack);
-        res.status(500).render('error_template', { error: err });
-    }
+// error handlers
 
-    app.get('/getprediction/', function(req, res, next) {
-        var userEmail = req.query.userEmail;
-        var round = parseInt(req.query.round);
-        db.collection('predictions').find({ Round : round , userEmail : userEmail}).toArray(function(err, docs) {
-            res.render('predictions', { 'userEmail' : userEmail, 'round' : round , 'predictions': docs } );
-        });
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
     });
-
-    app.get('/viewscores/:name', function(req, res){
-      var name = req.params.name;
-      var round = req.query.round;
-      res.render('scores', { name : name, round : round });
-    });
-
-    app.get('/viewtable/:round', function(req, res){
-      var round = req.params.round;
-      console.log("about to check fixtures for ", round);
-      db.collection('fixtures').find({Round : round}).toArray(function(err, docs) {
-          res.render('fixtures', { 'round' : round , 'fixtures': docs } );
-      });
-    });
-
-    app.get('/putprediction', function(req, res, next) {
-        res.render('gamePicker', { 'games' : [ 'ManU', 'Arsenal', 'Chelsea', 'Wolves' ] });
-    });
-
-    app.post('/storeprediction', function(req, res, next) {
-        var favorite = req.body.game;
-        if (typeof favorite == 'undefined') {
-            next('Please choose a game!');
-        }
-        else {
-            res.send("Your favorite game is " + favorite);
-        }
-    });
-
-    app.use(function(req, res){
-        res.sendStatus(404);
-    });
-
-    var server = app.listen(3000, function() {
-        var port = server.address().port;
-        console.log('Express server listening on port %s', port);
-    });
-
   });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
+});
+
+var server = app.listen(3000, function() {
+    var port = server.address().port;
+    console.log('Express server listening on port %s', port);
+});
