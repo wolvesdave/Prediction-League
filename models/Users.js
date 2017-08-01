@@ -3,9 +3,10 @@
     var schema = new mongoose.Schema({
             "userName" : { type : String,  trim: true },
             "userEmail" : { type : String,  trim: true, lowercase: true },
-            "TotalScore" : Number,
-            "MonthlyScore" : [Number],
-            "WeeklyScore": [Number],
+            "jokersRemaining": Number,
+            "totalScore" : Number,
+            "monthlyScore" : [Number],
+            "weeklyScore": [Number]
         }
       );
 

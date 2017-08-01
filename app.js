@@ -22,7 +22,7 @@ var env = nunjucks.configure('/path/to/templates', {
         commentStart: '<#',
         commentEnd: '#>'
       }
-    });
+    }); 
 
 // load mongoose package
 var mongoose = require('mongoose');

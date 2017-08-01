@@ -1,43 +1,59 @@
 var express = require('express');
 var router = express.Router();
 
-var predictions = require('../models/Predictions.js');
+var Predictions = require('../models/Predictions.js');
 
 /* GET /predictions listing. */
 router.get('/', function(req, res, next) {
-  Todo.find(function (err, predictions) {
+  Predictions.find(function (err, predictions) {
     if (err) return next(err);
-    res.json();
+    res.json(predictions);
   });
 });
 
-/* POST /todos */
+/* GET /Predictions/round/id */
+router.get('/round/:id', function(req, res, next) {
+  Predictions.find({round: req.params.id}, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
+/* GET /Predictions/user/id */
+router.get('/user/:id', function(req, res, next) {
+  Predictions.find({userEmail: req.params.id}, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
+/* POST /Predictions */
 router.post('/', function(req, res, next) {
-  Todo.create(req.body, function (err, post) {
+  Predictions.create(req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
 
-/* GET /todos/id */
+/* GET /Predictions/id */
 router.get('/:id', function(req, res, next) {
-  Todo.findById(req.params.id, function (err, post) {
+  Predictions.findById(req.params.id, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
 
-/* PUT /todos/:id */
+/* PUT /Predictions/:id */
 router.put('/:id', function(req, res, next) {
-  Todo.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+  Predictions.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
 
-/* DELETE /todos/:id */
+/* DELETE /Predictions/:id */
 router.delete('/:id', function(req, res, next) {
-  Todo.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+  Predictions.findByIdAndRemove(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });

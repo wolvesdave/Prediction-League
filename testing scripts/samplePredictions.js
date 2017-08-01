@@ -1,8 +1,8 @@
 
 var mongoose = require('mongoose');
-var Fixture = require('../models/Fixture');
-var User = require('../models/User');
-var Prediction = require('../models/Prediction');
+var Fixtures = require('../models/Fixtures');
+var Users = require('../models/Users');
+var Predictions = require('../models/Predictions');
 var faker = require('faker');
 /* var dotenv = require('dotenv'); */
 const chalk = require('chalk');
@@ -34,13 +34,13 @@ for (var r=0; r < 10; r++) {
           var HomeGoals = faker.random.number({min:0, max:5});
           var AwayGoals = faker.random.number({min:0, max:5});
 
-      	prediction = new Prediction({
-            HomeTeam : HomeTeam,
-            AwayTeam : AwayTeam,
-            HomeGoals : HomeGoals,
-            AwayGoals : AwayGoals,
+      	prediction = new Predictions({
+            homeTeam : HomeTeam,
+            awayTeam : AwayTeam,
+            homeGoals : HomeGoals,
+            awayGoals : AwayGoals,
             userEmail : userEmail,
-            Round : Round,
+            round : Round,
         });
 
       	prediction.save(function(err) {

@@ -1,15 +1,15 @@
     var mongoose = require('mongoose');
-      
+
     var schema = new mongoose.Schema({
           "userEmail" : { type : String,  trim: true, lowercase: true },
-          "Round" : Number,
-          "HomeTeam_Id" : Number,
-          "HomeTeam" : { type : String,  trim: true },
-          "AwayGoals" : Number,
-          "AwayTeam_Id" : Number,
-          "AwayTeam" : { type : String,  trim: true },
-          "HomeGoals" : Number,
-          "MatchDate" : Date
+          "round" : String,
+          "homeTeam_Id" : Number,
+          "homeTeam" : { type : String,  trim: true },
+          "awayGoals" : Number,
+          "awayTeam_Id" : Number,
+          "awayTeam" : { type : String,  trim: true },
+          "homeGoals" : Number,
+          "matchDate" : Date
         }
       );
 
