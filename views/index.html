@@ -1,91 +1,9 @@
-<html ng-app="app">
-<head>
-</head>
-
-<h1>{{title}}</h1>
-
-<!--
-<body ng-controller="PredictionController">
-<table border="0">
-  <tr>
-   <td>Enter your email: <input type="text" ng-model="userEmail" ng-pattern="emailaddr" required id=userEmail/></td>
-   <td> Select week number <input type="number" name="round" min="1" max="10" value="1"></td>
-   <td><a href="#/getprediction&userEmail={{userEmail}}&{{round}}">userEmail</a>
- </tr>
-</table>
-<button ng-click="submit(round,userEmail)">Submit</button>
-input valid? = <code>{{form.input.$valid}}</code><br>
-<body>
--->
-
-<!-- Template -->
-<script type="text/ng-template" id="/predictions.html">
-  <ul>
-    <li ng-repeat="prediction in predictions">
-      <input type="checkbox" ng-model="todo.completed" ng-change="update($index)">
-      <a ng-show="!editing[$index]" href="#/{{todo._id}}">{{todo.name}}</a>
-      <input type="text" ng-model="todo.name">
-      <button ng-show="editing[$index]" ng-click="update($index)">Update</button>
-    </li>
-  </ul>
-  New task <input type="text" ng-model="newTodo"><button ng-click="save()">Create</button>
-</script>
-
-<script>
-  angular.module('app', ['ngRoute', 'ngResource'])
-
-    //---------------
-    // Services
-    //---------------
-
-    .factory('Todos', ['$resource', function($resource){
-      return $resource('/todos/:id', null, {
-        'update': { method:'PUT' }
-      });
-    }])
-
-    //---------------
-    // Controllers
-    //---------------
-
-    .controller('PredictionController', ['$scope', 'Todos', function ($scope, Todos) {
-      $scope.editing = [];
-      $scope.todos = Todos.query();
-
-      $scope.save = function(){
-        if(!$scope.newTodo || $scope.newTodo.length < 1) return;
-        var todo = new Todos({ name: $scope.newTodo, completed: false });
-
-        todo.$save(function(){
-          $scope.todos.push(todo);
-          $scope.newTodo = ''; // clear textbox
-        });
-      }
-
-      $scope.update = function(index){
-        var todo = $scope.todos[index];
-        Todos.update({id: todo._id}, todo);
-        $scope.editing[index] = false;
-      }
-
-      $scope.edit = function(index){
-        $scope.editing[index] = angular.copy($scope.todos[index]);
-      }
-
-    }])
-
-    //---------------
-    // Routes
-    //---------------
-
-    .config(['$routeProvider', function ($routeProvider) {
-      $routeProvider
-        .when('/p', {
-          templateUrl: '/predictions.html',
-          controller: 'PredictionController'
-        });
-    }]);
-</script>
-
-</body>
+<!doctype HTML>
+<html>
+  <head><title></title></head>
+  <body>
+        <p>Prediction League Home Page</p>
+          <a href="list_users">List Users</a>
+          <a href="add_user">Add a User</a>
+  </body>
 </html>
