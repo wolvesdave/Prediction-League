@@ -86,19 +86,18 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
         var body = req.body;
         console.log(body, body.homeTeam.length);
         var predictions = [];
-
         for (var i = 0; i < body.homeTeam.length; i++) {
-          predictions[i]._id = body.email;
-          predictions[i].name = body.name;
-          predictions[i].homeTeam = body.homeTeam[i];
-          predictions[i].homeScore = body.homeScore[i];
-          predictions[i].awayTeam = body.awayTeam[i];
-          predictions[i].awayScore = body.awayScore[i];
+          console.log("Adding prediction number ", i);
+          predictions[i] = {email : body.email, name : body.name, homeTeam : body.homeTeam[i], homeScore : body.homeScore[i], awayTeam : body.awayTeam[i], awayScore : body.awayScore[i]}
+          console.log("Prediction added: ", predictions[i]);
         };
-        console.log(predictions);
-         db.collection('predictions').insertMany(predictions), function(err, r) {
-      assert.equal(null, err);
-    }
+        console.log("About to insert predictions: ", predictions);
+        db.collection('predictions').insertMany(predictions, function(err, r) {
+          assert.equal(null, err);
+          var message = "predictions inserted with result: " + r;
+          console.log(message);
+          res.render("add_prediction", {message: message});
+        });
 
 
         /* if (name == '' || email == '') {
