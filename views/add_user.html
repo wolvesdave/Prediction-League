@@ -5,10 +5,13 @@
      <form action="/add_user" method="POST">
         <p>Please enter the details of a new user</p>
           <p>
-            Name: <input type="text" name="name" value=""/>
-            Email: <input type="text" name="email" value=""/>
+            <ul>Name: <input type="text" name="name" value=""/></ul>
+            <ul>Email: <input type="text" name="email" value=""/></ul>
+          </p>
+          <p>{{message}}
           </p>
         <input type="submit" value="Submit"/>
      </form>
+     <a href="/">Home</a>
   </body>
 </html>

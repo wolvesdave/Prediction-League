@@ -1,0 +1,24 @@
+<!doctype HTML>
+<html>
+  <head><title>Add new Prediction</title></head>
+  <body>
+     <form action="/add_prediction" method="POST">
+        <p>Please enter your prediction</p>
+          <p>
+            <ul>Name: <input type="text" name="name" value="{{name}}"/></ul>
+            <ul>Email: <input type="text" name="email" value="{{email}}"/></ul>
+            <ul>{% for game in games %}
+              <li>{{game.homeTeam}}
+                <input type="hidden" name="homeTeam" value="{{game.homeTeam}}" />
+                <input type="number" name="homeScore" value="{{game.homeScore}}"/>
+              vs {{game.awayTeam}}
+              <input type="hidden" name="awayTeam" value="{{game.awayTeam}}" />
+              <input type="number" name="awayScore" value="{{game.awayScore}}"/>
+              Joker? <input type="checkbox" name="joker" value="{{game.joker}}"/</li>
+            </ul>{% endfor %}
+          </p>
+        <input type="submit" value="Submit"/>
+     </form>
+     <a href="/">Home</a>
+  </body>
+</html>
