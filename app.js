@@ -16,16 +16,16 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
     console.log("Successfully connected to MongoDB.");
 
     /* Get System parameters */
-        db.collection('users').findOne({"_id":"admin"},{},function (err, doc) {
-              assert.equal(null, err);
-              var currentRound = doc.currentRound;
-              var currentMonth = doc.currentMonth;
-              console.log("Retrieved defaults - round = ", currentRound, " month = ", currentMonth );
-          });
+    db.collection('admin').findOne({"_id":"admin"},{},function (err, doc) {
+        assert.equal(null, err);
+        var currentRound = doc.currentRound;
+        var currentMonth = doc.currentMonth;
+        console.log("Retrieved defaults - round = ", currentRound, " month = ", currentMonth );
+    });
 
-        app.get('/', function(req, res, next) {
-            res.render('index',{});
-        });
+    app.get('/', function(req, res, next) {
+      res.render('index',{});
+    });
 
     app.get('/', function(req, res, next) {
         res.render('index',{});
@@ -40,6 +40,22 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
 
     app.get('/add_user', function(req, res, next) {
         res.render('add_user',{});
+    });
+
+    app.get('/populate_round', function(req, res, next) {
+      db.collection('admin').findOne({"_id":"admin"},{},function (err, doc) {
+          assert.equal(null, err);
+          var currentRound = doc.currentRound;
+          var currentMonth = doc.currentMonth;
+          console.log("Retrieved defaults - round = ", currentRound, " month = ", currentMonth );
+
+          var nextRound = currentRound + 1;
+          db.collection('fixtures').find({Round : nextRound}).toArray(function (err, docs) {
+              assert.equal(null, err);
+              console.log(docs);
+              res.render('populate_round',{games : docs, round : nextRound});
+          });
+      });
     });
 
     app.get('/add_prediction', function(req, res, next) {

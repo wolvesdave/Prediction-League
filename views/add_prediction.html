@@ -7,7 +7,8 @@
           <p>
             <ul>Name: <input type="text" name="name" value="{{name}}"/></ul>
             <ul>Email: <input type="text" name="email" value="{{email}}"/></ul>
-            <ul>{% for game in games %}
+            <ul style="list-style-type:none">
+              {% for game in games %}
               <li>{{game.homeTeam}}
                 <input type="hidden" name="homeTeam" value="{{game.homeTeam}}" />
                 <input type="number" name="homeScore" value="{{game.homeScore}}"/>
@@ -15,7 +16,8 @@
               <input type="hidden" name="awayTeam" value="{{game.awayTeam}}" />
               <input type="number" name="awayScore" value="{{game.awayScore}}"/>
               Joker? <input type="checkbox" name="joker" value="{{game.joker}}"/</li>
-            </ul>{% endfor %}
+            {% endfor %}
+            </ul>
           </p>
           <p>{{message}}
           </p>
