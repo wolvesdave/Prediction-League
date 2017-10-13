@@ -1,7 +1,7 @@
 {
-  "name": "all_together_now",
+  "name": "prediction_league",
   "version": "0.1.0",
-  "description": "Using the MongoDB driver together with route handling and templates",
+  "description": "App to manage a Premier League prediction league",
   "main": "app.js",
   "dependencies": {
     "consolidate": "~0.13.1",
@@ -10,8 +10,8 @@
     "body-parser": "~1.14.2",
     "nunjucks": "~2.2.0"
   },
-  "author": "Shannon Bradshaw",
-  "license": "0BSD",
+  "author": "David Koppe",
+  "license": "Unlicensed",
   "devDependencies": {
     "nodemon": "^1.12.1"
   }
