@@ -23,9 +23,9 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
         console.log("Retrieved defaults - round = ", currentRound, " month = ", currentMonth );
     });
 
-    /* app.get('/', function(req, res, next) {
+    app.get('/', function(req, res, next) {
         res.render('index',{});
-    }); */
+    });
 
     app.get('/list_users', function(req, res, next) {
       db.collection('users').find({}).toArray(function (err, docs) {
