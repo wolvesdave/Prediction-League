@@ -27,12 +27,17 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
         res.render('index',{});
     });
 
-    app.get('/list_users', function(req, res, next) {
+    app.get('/api/list_users', function(req, res, next) {
       db.collection('users').find({}).toArray(function (err, docs) {
             assert.equal(null, err);
+            console.log("Called API");
             /* res.render('list_users',{users : docs});*/
             res.send(docs)
         });
+    });
+
+    app.get('/list_users', function(req, res, next) {
+            res.render('list_users')
     });
 
     app.get('/add_user', function(req, res, next) {

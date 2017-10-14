@@ -28,14 +28,16 @@
 
       <div class="container-fluid">
         <div class="container">
-          <div class="row">
+          <div ng-controller="mainController">
+            <div class="row">
             <div class="col-sm-12" style="background-color:orange;">
-              <h3>Users</h3>
-              <ul>
+                <h3>Users</h3>
+                <ul>
                   <li ng-repeat="user in users">
                       User name: {{ user.name }}
                   </li>
-              </ul>
+                </ul>
+            </div>
           </div>
         </div>
 		  </div>
