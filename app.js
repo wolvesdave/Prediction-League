@@ -4,11 +4,32 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     MongoClient = require('mongodb').MongoClient,
     assert = require('assert');
+    nunjucks = require('nunjucks');
 
 app.engine('html', engines.nunjucks);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 app.use(bodyParser.urlencoded({ extended: true }));
+
+var env = nunjucks.configure('/path/to/templates', {
+      tags: {
+        // or whatever other tag markers you'd like to use
+        blockStart: '<%',
+        blockEnd: '%>',
+        variableStart: '<$',
+        variableEnd: '$>',
+        commentStart: '<#',
+        commentEnd: '#>'
+      }
+    });
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+app.use('/public',express.static(__dirname + '/public'))
 
 MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, db) {
 
@@ -23,21 +44,26 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
         console.log("Retrieved defaults - round = ", currentRound, " month = ", currentMonth );
     });
 
+
     app.get('/', function(req, res, next) {
         res.render('index',{});
     });
+
 
     app.get('/api/list_users', function(req, res, next) {
       db.collection('users').find({}).toArray(function (err, docs) {
             assert.equal(null, err);
             console.log("Called API");
             /* res.render('list_users',{users : docs});*/
+            console.log(docs);
             res.send(docs)
         });
     });
 
     app.get('/list_users', function(req, res, next) {
-            res.render('list_users')
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      res.render('list_users')
     });
 
     app.get('/add_user', function(req, res, next) {
