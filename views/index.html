@@ -28,7 +28,7 @@
 
       <div class="container-fluid">
         <div class="container">
-          <div ng-controller="mainController">
+          <div ng-controller="homeController">
             <div class="row">
             <div class="col-sm-12" style="background-color:orange;">
                 <h3>Users</h3>
@@ -46,12 +46,13 @@
       <div class="container-fluid">
         <div class="container">
           <div class="row">
-            <div class="col-sm-8" style="background-color:yellow;">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<br>
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            <div class="col-sm-8" style="background-color:yellow;" ng-controller="predictionController">
+              <li ng-repeat="prediction in predictions">
+                  Home Team: {{ prediction.homeTeam }}
+              </li>
             </div>
-            <div class="col-sm-4" style="background-color:pink;" ng-controller="secondController">
-              <p>Here is the name: {{ name }}</p>
+            <div class="col-sm-4" style="background-color:pink;" ng-controller="tableController">
+              <p>Here is the table: {{ table }}</p>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 var predictionApp = angular.module('predictionApp', []);
 
 // ROUTES
-predictionApp.config(function ($routeProvider) {
+/* predictionApp.config(function ($routeProvider) {
 
     $routeProvider
 
@@ -20,7 +20,7 @@ predictionApp.config(function ($routeProvider) {
         controller: 'tableController'
     })
 
-});
+});*/
 
 // CONTROLLERS
 predictionApp.controller('homeController', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
@@ -39,10 +39,24 @@ predictionApp.controller('homeController', ['$scope', '$filter', '$http', functi
 
 }]);
 
-predictionApp.controller('predictionController', ['$scope', function($scope) {
+predictionApp.controller('predictionController', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
+
+    $http.get('http://localhost:3000/api/get_predictions')
+      .success(function (result) {
+
+          $scope.predictions = result;
+
+      })
+      .error(function (data, status) {
+
+          console.log(data);
+
+    });
 
 }]);
 
 predictionApp.controller('tableController', ['$scope', function($scope) {
+
+    $scope.table = "This is a table"
 
 }]);
