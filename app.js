@@ -137,11 +137,22 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
     });
 
     app.get('/api/get_predictions', function(req, res, next) {
+      console.log("This is the body: ", req.body);
       /* var user = req.body.user; */
       var user = "wolvesdave@gmail.com"
       db.collection('predictions').find({"email" : user}).toArray(function (err, docs) {
             assert.equal(null, err);
             console.log("Called get_predictions API");
+            /* res.render('list_users',{users : docs});*/
+            console.log(docs);
+            res.send(docs)
+        });
+    });
+
+    app.get('/api/get_table', function(req, res, next) {
+      db.collection('users').find({},{"_id" : 0, "name" : 1, "totalScore" : 1}).sort({"totalScore": -1}).toArray(function (err, docs) {
+            assert.equal(null, err);
+            console.log("Called get_table API");
             /* res.render('list_users',{users : docs});*/
             console.log(docs);
             res.send(docs)

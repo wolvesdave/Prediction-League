@@ -41,7 +41,7 @@ predictionApp.controller('homeController', ['$scope', '$filter', '$http', functi
 
 predictionApp.controller('predictionController', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
 
-    $http.get('http://localhost:3000/api/get_predictions')
+    $http.get('http://localhost:3000/api/get_predictions',)
       .success(function (result) {
 
           $scope.predictions = result;
@@ -55,8 +55,20 @@ predictionApp.controller('predictionController', ['$scope', '$filter', '$http', 
 
 }]);
 
-predictionApp.controller('tableController', ['$scope', function($scope) {
+predictionApp.controller('tableController', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
 
-    $scope.table = "This is a table"
+  $http.get('http://localhost:3000/api/get_table',)
+    .success(function (result) {
+
+        $scope.users = result;
+
+    })
+    .error(function (data, status) {
+
+        console.log(data);
+
+  });
+
+  $scope.table = "This is a table"
 
 }]);
