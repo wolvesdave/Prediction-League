@@ -8,7 +8,7 @@ var express = require('express'),
 
 app.engine('html', engines.nunjucks);
 app.set('view engine', 'html');
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/public');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 var env = nunjucks.configure('/path/to/templates', {
@@ -36,16 +36,21 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
     assert.equal(null, err);
     console.log("Successfully connected to MongoDB.");
 
-    /* Get System parameters */
-    db.collection('admin').findOne({"_id":"admin"},{},function (err, doc) {
-        assert.equal(null, err);
-        var currentRound = doc.currentRound;
-        var currentMonth = doc.currentMonth;
-        console.log("Retrieved defaults - round = ", currentRound, " month = ", currentMonth );
-    });
-
     app.get('/', function(req, res, next) {
         res.render('index',{});
+    });
+
+    app.get('/api/sysparms', function(req, res, next) {
+        /* Get System parameters */
+        db.collection('admin').findOne({"_id":"admin"},{},function (err, doc) {
+            assert.equal(null, err);
+            var currentRound = doc.currentRound;
+            var currentMonth = doc.currentMonth;
+            console.log("Retrieved defaults - ", doc);
+            res.send(doc)
+            /* email = "wolvesdave@gmail.com";
+            round = currentRound; */
+        });
     });
 
     app.get('/api/list_users', function(req, res, next) {
@@ -57,6 +62,22 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
             res.send(docs)
         });
     });
+
+    app.get('/api/get_user/:email', function(req, res, next) {
+
+      console.log("This is the parms: ", req.params.email);
+
+      var email = req.params.email;
+
+      db.collection('users').find({"_id" : email}).toArray(function (err, docs) {
+            assert.equal(null, err);
+            console.log("Called API");
+            /* res.render('list_users',{users : docs});*/
+            console.log(docs);
+            res.send(docs)
+        });
+    });
+
 
     app.get('/api/populate_round', function(req, res, next) {
       db.collection('admin').findOne({"_id":"admin"},{},function (err, doc) {

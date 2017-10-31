@@ -18,8 +18,8 @@
       </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
-            <li><a href="add_user"></i>Add a User</a></li>
-            <li><a href="list_users"></i>List User</a></li>
+            <li><a href="#/prediction"></i>Predictions</a></li>
+            <li><a href="#/table"></i>Table</a></li>
             <li><a href="populate_round"></i>Populate next round of Fixtures</a></li>
             <li><a href="add_prediction"></i>Add a Prediction</a></li>
         </ul>
@@ -29,16 +29,9 @@
       <div class="container-fluid">
         <div class="container">
           <div ng-controller="homeController">
-            <div class="row">
-            <div class="col-sm-12" style="background-color:cyan;">
-                <h3>Users</h3>
-                <ul>
-                  <li ng-repeat="user in users">
-                      User name: {{ user.name }}
-                  </li>
-                </ul>
-            </div>
-            </div>
+
+            <userSummary user="user"></userSummary>
+
           </div>
 		    </div>
       </div>
@@ -47,36 +40,10 @@
         <div class="container">
           <div class="row">
             <div class="col-sm-8" ng-controller="predictionController">
-              <p><input type="text" name="user" value="{{ user }}"/></p>
-              <p><input type="text" name="round" value="{{ round }}"/></p>
-              <table class="table table-striped">
-                <thead class="thead-dark">
-                  <tr>
-                    <th scope="col">Home Team</th>
-                    <th scope="col">Home Score</th>
-                    <th scope="col">Home Prediction</th>
-                    <th scope="col">Away Team</th>
-                    <th scope="col">Away Score</th>
-                    <th scope="col">Away Prediction</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="prediction in predictions">
-                    <td>{{ prediction.homeTeam }}</td>
-                    <td>{{ prediction.homeScore }}</th>
-                    <td>{{ prediction.homePrediction }}</th>
-                    <td>{{ prediction.awayTeam }}</td>
-                    <td>{{ prediction.awayScore }}</th>
-                    <td>{{ prediction.awayPrediction }}</th>
-                  </tr>
-                </tbody>
-              </table>
 
-              <!-- <li ng-repeat="prediction in predictions">
-                  {{ prediction.homeTeam }} vs {{ prediction.awayTeam }}
-              </li> -->
+              <prediction-list email="wolvesdave@gmail.com" round=2 predictions={{predictions}}></prediction-list>
+
             </div>
-
 
             <div class="col-sm-4" ng-controller="tableController">
               <table class="table table-striped">
