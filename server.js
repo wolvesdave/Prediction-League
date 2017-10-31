@@ -48,38 +48,58 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
             var currentMonth = doc.currentMonth;
             console.log("Retrieved defaults - ", doc);
             res.send(doc)
-            /* email = "wolvesdave@gmail.com";
-            round = currentRound; */
         });
     });
 
     app.get('/api/list_users', function(req, res, next) {
+      console.log("api/list_user input parms: ", req.params);
       db.collection('users').find({}).toArray(function (err, docs) {
             assert.equal(null, err);
-            console.log("Called API");
             /* res.render('list_users',{users : docs});*/
-            console.log(docs);
+            console.log("api/list_user result: ", docs);
             res.send(docs)
         });
     });
 
     app.get('/api/get_user/:email', function(req, res, next) {
 
-      console.log("This is the parms: ", req.params.email);
+      console.log("api/get_user input parms: ", req.params);
 
       var email = req.params.email;
 
       db.collection('users').find({"_id" : email}).toArray(function (err, docs) {
             assert.equal(null, err);
-            console.log("Called API");
+            console.log("api/get_user result: ", docs);
+            /* res.render('list_users',{users : docs});*/
+            res.send(docs)
+        });
+    });
+
+    app.get('/api/get_predictions/:email/:round', function(req, res, next) {
+      console.log("This is the parms: ", req.params.email, " ", req.params.round);
+      /* var user = req.body.user; */
+      var email = req.params.email;
+      var round = req.params.Round;
+      db.collection('predictions').find({"email" : email, "Round": round}).toArray(function (err, docs) {
+            assert.equal(null, err);
+            console.log("Called get_predictions API");
             /* res.render('list_users',{users : docs});*/
             console.log(docs);
             res.send(docs)
         });
     });
 
+    app.get('/api/get_table', function(req, res, next) {
+      console.log("api/get_table input parms: ", req.params);
+      db.collection('users').find({},{"_id" : 1, "name" : 1, "totalScore" : 1}).sort({"totalScore": -1}).toArray(function (err, docs) {
+            assert.equal(null, err);
+            /* res.render('list_users',{users : docs});*/
+            console.log("api/get_table result: ", docs);
+            res.send(docs)
+        });
+    });
 
-    app.get('/api/populate_round', function(req, res, next) {
+/*    app.get('/api/populate_round', function(req, res, next) {
       db.collection('admin').findOne({"_id":"admin"},{},function (err, doc) {
           assert.equal(null, err);
           var currentRound = doc.currentRound;
@@ -155,31 +175,7 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
           console.log(message);
           res.render("add_prediction", {message: message});
         });
-    });
-
-    app.get('/api/get_predictions/:email/:round', function(req, res, next) {
-      console.log("This is the parms: ", req.params.email, " ", req.params.round);
-      /* var user = req.body.user; */
-      var email = req.params.email;
-      var round = req.params.Round;
-      db.collection('predictions').find({"email" : email, "Round": round}).toArray(function (err, docs) {
-            assert.equal(null, err);
-            console.log("Called get_predictions API");
-            /* res.render('list_users',{users : docs});*/
-            console.log(docs);
-            res.send(docs)
-        });
-    });
-
-    app.get('/api/get_table', function(req, res, next) {
-      db.collection('users').find({},{"_id" : 1, "name" : 1, "totalScore" : 1}).sort({"totalScore": -1}).toArray(function (err, docs) {
-            assert.equal(null, err);
-            console.log("Called get_table API");
-            /* res.render('list_users',{users : docs});*/
-            console.log(docs);
-            res.send(docs)
-        });
-    });
+    }); */
 
     app.use(function(req, res){
         res.sendStatus(404);

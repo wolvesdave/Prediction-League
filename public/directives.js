@@ -5,7 +5,8 @@ predictionApp.directive("userSummary", function() {
        templateUrl: 'public/directives/userSummary.html',
        replace: true,
        scope: {
-           user: "="
+            user: "=",
+            round: "="
        }
    }
 });

@@ -4,22 +4,18 @@
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Home Team</th>
-      <th scope="col">Home Score</th>
-      <th scope="col">Home Prediction</th>
-      <th scope="col">Away Team</th>
-      <th scope="col">Away Score</th>
-      <th scope="col">Away Prediction</th>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">EMail</th>
+      <th scope="col">Total Score</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="prediction in predictions">
-      <td>{{ prediction.homeTeam }}</td>
-      <td>{{ prediction.homeScore }}</th>
-      <td>{{ prediction.homePrediction }}</th>
-      <td>{{ prediction.awayTeam }}</td>
-      <td>{{ prediction.awayScore }}</th>
-      <td>{{ prediction.awayPrediction }}</th>
+    <tr ng-repeat="user in users">
+      <th scope="row">{{$index + 1}}</th>
+      <td>{{ user.name }}</td>
+      <td>{{ user._id}}</td>
+      <td>{{ user.totalScore}}</td>
     </tr>
   </tbody>
 </table>

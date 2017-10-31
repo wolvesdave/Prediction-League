@@ -5,15 +5,14 @@ predictionApp.controller('userController', ['$scope', '$filter', '$http', functi
 
     $http.get('http://localhost:3000/api/sysparms')
       .success(function (result) {
-        /*email = "wolvesdave@gmail.com";
-        round = 1; */
+
         $scope.email = result.email;
-        $scope.round = result.round;
+        $scope.round = result.currentRound;
 
     $http.get('http://localhost:3000/api/get_user/'+$scope.email)
         .success(function (result) {
 
-            $scope.users = result;
+            $scope.user = result[0];
 
         })
         .error(function (data, status) {
@@ -28,13 +27,14 @@ predictionApp.controller('predictionController', ['$scope', '$filter', '$http', 
 
     console.log("In predictionController");
 
-    /* user = "wolvesdave@gmail.com"; */
-    /* round = 1;  */
+    $http.get('http://localhost:3000/api/sysparms')
+      .success(function (result) {
 
-    user = $scope.user; /*$scope.user; */
-    round = $scope.round; /* $scope.round;*/
+        $scope.email = result.email;
+        $scope.round = result.currentRound;
 
-    $http.get('http://localhost:3000/api/get_predictions/'+user+'/'+round)
+
+    $http.get('http://localhost:3000/api/get_predictions/'+$scope.email+'/'+$scope.round)
       .success(function (result) {
 
           $scope.predictions = result;
@@ -45,8 +45,9 @@ predictionApp.controller('predictionController', ['$scope', '$filter', '$http', 
           console.log(data);
 
     });
-
+})
 }]);
+
 
 predictionApp.controller('tableController', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
 

@@ -1,5 +1,6 @@
 <div class="col-sm-12" style="background-color:cyan;">
-    <p><input type="text" name="email" value="{{ email }}"/></p>
+    <p><input type="text" name="email" value="{{ user._id }}"/></p>
+    Round: {{ round }}
     <table class="table table-striped">
       <thead class="thead-dark">
         <tr>
@@ -14,11 +15,11 @@
       <tbody>
         <tr>
           <td>{{ user.name }}</td>
-          <td>{{ user._id}}</td>
-          <td>{{ user.totalScore}}</td>
-          <td>{{ user.monthlyScore}}</td>
-          <td>{{ user.weeklyScore[$scope.currentRound-1]}}</td>
-          <td>{{ user.jokersRemaining}}</td>
+          <td>{{ user._id }}</td>
+          <td>{{ user.totalScore }}</td>
+          <td>{{ user.monthlyScore }}</td>
+          <td>{{ user.weeklyScore[round-1] }}</td>
+          <td>{{ user.jokersRemaining }}</td>
         </tr>
       </tbody>
     </table>
