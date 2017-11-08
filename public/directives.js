@@ -6,7 +6,8 @@ predictionApp.directive("userSummary", function() {
        replace: true,
        scope: {
             user: "=",
-            round: "="
+            round: "=",
+            month: "="
        }
    }
 });
@@ -30,7 +31,10 @@ predictionApp.directive("predictionTable", function() {
        templateUrl: 'public/directives/predictionTable.html',
        replace: true,
        scope: {
-           email: "="
+           email: "=",
+           round: "=",
+           month: "=",
+           users: "="
       }
    }
 });

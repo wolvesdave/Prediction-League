@@ -61,16 +61,17 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
         });
     });
 
-    app.get('/api/get_user/:email', function(req, res, next) {
+    app.get('/api/get_user/:email/:month', function(req, res, next) {
 
       console.log("api/get_user input parms: ", req.params);
 
       var email = req.params.email;
+      var month = req.params.month;
 
-      db.collection('users').find({"_id" : email}).toArray(function (err, docs) {
+/* db.users.find({},{"monthlyScore": {$elemMatch : {month : "August"}}}); */
+      db.collection('users').find({"_id" : email},{name : 1, jokersRemaining : 1, totalScore : 1, weeklyScore : 1, "monthlyScore": {$elemMatch : {month : "August"}}}).toArray(function (err, docs) {
             assert.equal(null, err);
             console.log("api/get_user result: ", docs);
-            /* res.render('list_users',{users : docs});*/
             res.send(docs)
         });
     });

@@ -1,6 +1,7 @@
 <div class="col-sm-12" style="background-color:cyan;">
-    <p><input type="text" name="email" value="{{ user._id }}"/></p>
-    Round: {{ round }}
+    <p>User: {{ user._id }}</p>
+    <p>Round: {{ round }}</p>
+    <p>Month: {{ month }}</p>
     <table class="table table-striped">
       <thead class="thead-dark">
         <tr>
@@ -17,7 +18,7 @@
           <td>{{ user.name }}</td>
           <td>{{ user._id }}</td>
           <td>{{ user.totalScore }}</td>
-          <td>{{ user.monthlyScore }}</td>
+          <td>{{ user.monthlyScore[0].score }}</td>
           <td>{{ user.weeklyScore[round-1] }}</td>
           <td>{{ user.jokersRemaining }}</td>
         </tr>

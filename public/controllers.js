@@ -8,8 +8,9 @@ predictionApp.controller('userController', ['$scope', '$filter', '$http', functi
 
         $scope.email = result.email;
         $scope.round = result.currentRound;
+        $scope.month = result.currentMonth;
 
-    $http.get('http://localhost:3000/api/get_user/'+$scope.email)
+    $http.get('http://localhost:3000/api/get_user/'+$scope.email+'/'+$scope.month)
         .success(function (result) {
 
             $scope.user = result[0];
@@ -32,7 +33,7 @@ predictionApp.controller('predictionController', ['$scope', '$filter', '$http', 
 
         $scope.email = result.email;
         $scope.round = result.currentRound;
-
+        $scope.month = result.currentMonth;
 
     $http.get('http://localhost:3000/api/get_predictions/'+$scope.email+'/'+$scope.round)
       .success(function (result) {
@@ -45,13 +46,20 @@ predictionApp.controller('predictionController', ['$scope', '$filter', '$http', 
           console.log(data);
 
     });
-})
+});
 }]);
 
 
 predictionApp.controller('tableController', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
 
   console.log("In tableController");
+
+  $http.get('http://localhost:3000/api/sysparms')
+    .success(function (result) {
+
+      $scope.email = result.email;
+      $scope.round = result.currentRound;
+      $scope.month = result.currentMonth;
 
   $http.get('http://localhost:3000/api/get_table',)
     .success(function (result) {
@@ -64,5 +72,5 @@ predictionApp.controller('tableController', ['$scope', '$filter', '$http', funct
         console.log(data);
 
   });
-
+});
 }]);
