@@ -9,7 +9,7 @@
     "express": "~4.13.3",
     "fs": "0.0.1-security",
     "http-post": "^0.1.1",
-    "mongodb": "~2.1.3",
+    "mongodb": "~3.6.0",
     "nunjucks": "~2.2.0",
     "request": "^2.83.0",
     "xml2js": "^0.4.19"
@@ -18,5 +18,6 @@
   "license": "Unlicensed",
   "devDependencies": {
     "nodemon": "^1.12.1"
-  }
+  },
+  "scripts": { "start": "node server.js"} 
 }
