@@ -40,6 +40,10 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
         res.render('index',{});
     });
 
+    app.get('/admin', function(req, res, next) {
+        res.render('admin_home',{});
+    });
+
     app.get('/api/sysparms', function(req, res, next) {
         /* Get System parameters */
         db.collection('admin').findOne({"_id":"admin"},{},function (err, doc) {

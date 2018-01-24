@@ -18,4 +18,19 @@ predictionApp.config(function ($routeProvider) {
         controller: 'tableController'
     })
 
+    .when('/add_round', {
+        templateUrl: 'public/pages/add_round.html',
+        controller: 'addRoundController'
+    })
+
+    .when('/close_round', {
+        templateUrl: 'public/pages/close_round.html',
+        controller: 'closeRoundController'
+    })
+
+    .when('/close_month', {
+        templateUrl: 'public/pages/close_month.html',
+        controller: 'closeMonthController'
+    })
+
 });
