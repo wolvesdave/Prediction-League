@@ -1,26 +1,15 @@
 <div class="col-sm-12" style="background-color:cyan;">
-    <p><input type="number" name="round" value="{{ round }}"/></p>
-    <table class="table table-striped">
-      <prediction-list email="email" round="round" predictions="predictions"></prediction-list>
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">EMail</th>
-          <th scope="col">Total Score</th>
-          <th scope="col">Monthly Score</th>
-          <th scope="col">Weekly Score</th>
-          <th scope="col">Jokers Remaining</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{ user.name }}</td>
-          <td>{{ user._id}}</td>
-          <td>{{ user.totalScore}}</td>
-          <td>{{ user.monthlyScore}}</td>
-          <td>{{ user.weeklyScore[$scope.currentRound-1]}}</td>
-          <td>{{ user.jokersRemaining}}</td>
-        </tr>
-      </tbody>
-    </table>
+  <form ng-submit="retrieveFixtures()">
+    <p>Start Date<input type="date" name="from" value="{{ startDate | date : 'shortDate'}}"/></p>
+    <p>End Date<input type="date" name="to" value="{{ endDate | date : 'shortDate'}}"/></p>
+    <input type="submit" class="btn btn-primary" value="Submit" />
+    <input type="reset" class="btn btn-secondary" ng-click="resetForm()" value="Reset" />
+
+    <prediction-list predictions="predictions"></prediction-list>
+
+    <!-- <div ng-show='showFixtures'>
+
+    </div> -->
+
+  </form>
 </div>

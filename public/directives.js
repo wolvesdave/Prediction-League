@@ -18,8 +18,6 @@ predictionApp.directive("predictionList", function() {
        templateUrl: 'public/directives/predictionList.html',
        replace: true,
        scope: {
-           email: "=",
-           round: "=",
            predictions: "="
        }
    }

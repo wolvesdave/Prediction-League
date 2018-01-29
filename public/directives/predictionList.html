@@ -1,6 +1,5 @@
 <div class="col-sm-12" style="background-color:cyan;">
-<p><input type="text" name="email" value="{{ email }}"/></p>
-<p><input type="text" name="round" value="{{ round }}"/></p>
+
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
@@ -14,11 +13,11 @@
   </thead>
   <tbody>
     <tr ng-repeat="prediction in predictions">
-      <td>{{ prediction.homeTeam }}</td>
-      <td>{{ prediction.homeScore }}</th>
+      <td>{{ prediction.HomeTeam }}</td>
+      <td>{{ prediction.HomeGoals }}</th>
       <td>{{ prediction.homePrediction }}</th>
-      <td>{{ prediction.awayTeam }}</td>
-      <td>{{ prediction.awayScore }}</th>
+      <td>{{ prediction.AwayTeam }}</td>
+      <td>{{ prediction.AwayGoals }}</th>
       <td>{{ prediction.awayPrediction }}</th>
     </tr>
   </tbody>
