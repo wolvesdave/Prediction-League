@@ -1,0 +1,25 @@
+<!doctype HTML>
+<html>
+  <head><title>Populate next Round of Fixtures</title></head>
+  <body>
+     <form action="/populate_round" method="POST">
+          <p>
+            <p>Round: <input type="text" name="round" value="{{round}}"/>
+              <ul style="list-style-type:none">
+                {% for game in games %}
+              <li>{{game.HomeTeam}}
+                <input type="hidden" name="homeTeam" value="{{game.HomeTeam}}" />
+                <input type="number" name="homeScore" value="{{game.HomeScore}}"/>
+              vs {{game.AwayTeam}}
+              <input type="hidden" name="awayTeam" value="{{game.AwayTeam}}" />
+              <input type="number" name="awayScore" value="{{game.AwayScore}}"/>
+              Joker? <input type="checkbox" name="joker" value="{{game.joker}}"/</li>
+          {% endfor %}
+        </ul>
+          <p>{{message}}
+          </p>
+        <input type="submit" value="Submit"/>
+     </form>
+     <a href="/">Home</a>
+  </body>
+</html>

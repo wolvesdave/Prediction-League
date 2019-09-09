@@ -1,0 +1,25 @@
+<div class="col-sm-12" style="background-color:cyan;">
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Home Team</th>
+      <th scope="col">Home Score</th>
+      <th scope="col">Home Prediction</th>
+      <th scope="col">Away Team</th>
+      <th scope="col">Away Score</th>
+      <th scope="col">Away Prediction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="prediction in predictions">
+      <td>{{ prediction.HomeTeam }}</td>
+      <td>{{ prediction.HomeGoals }}</th>
+      <td>{{ prediction.homePrediction }}</th>
+      <td>{{ prediction.AwayTeam }}</td>
+      <td>{{ prediction.AwayGoals }}</th>
+      <td>{{ prediction.awayPrediction }}</th>
+    </tr>
+  </tbody>
+</table>
+</div>

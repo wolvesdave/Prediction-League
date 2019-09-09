@@ -1,0 +1,15 @@
+<div class="col-sm-12" style="background-color:cyan;">
+  <form ng-submit="retrieveFixtures()">
+    <p>Start Date<input type="date" name="from" value="{{ startDate | date : 'shortDate'}}"/></p>
+    <p>End Date<input type="date" name="to" value="{{ endDate | date : 'shortDate'}}"/></p>
+    <input type="submit" class="btn btn-primary" value="Submit" />
+    <input type="reset" class="btn btn-secondary" ng-click="resetForm()" value="Reset" />
+
+    <prediction-list predictions="predictions"></prediction-list>
+
+    <!-- <div ng-show='showFixtures'>
+
+    </div> -->
+
+  </form>
+</div>

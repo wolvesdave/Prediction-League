@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-us" ng-app="predictionApp">
+<head>
+  <title>Prediction League Home Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://code.angularjs.org/1.3.0-rc.1/angular.min.js"></script>
+  <script src="public/predictionModule.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Prediction League</a>
+      </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#/prediction"></i>Predictions</a></li>
+            <li><a href="#/table"></i>Table</a></li>
+            <li><a href="populate_round"></i>Populate next round of Fixtures</a></li>
+            <li><a href="add_prediction"></i>Add a Prediction</a></li>
+        </ul>
+      </div>
+    </nav>
+
+      <div class="container-fluid">
+        <div class="container">
+          <div ng-controller="homeController">
+
+            <userSummary user="user"></userSummary>
+
+          </div>
+		    </div>
+      </div>
+
+      <div class="container-fluid">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8" ng-controller="predictionController">
+
+              <prediction-list email="wolvesdave@gmail.com" round=2 predictions={{predictions}}></prediction-list>
+
+            </div>
+
+            <div class="col-sm-4" ng-controller="tableController">
+              <table class="table table-striped">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">EMail</th>
+                    <th scope="col">Total Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="user in users">
+                    <th scope="row">{{$index + 1}}</th>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user._id}}</td>
+                    <td>{{ user.totalScore}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- <li ng-repeat="user in users">
+                  {{ user.name }} {{ user.totalScore}}
+              </li> -->
+            </div>
+          </div>
+        </div>
+		  </div>
+
+</body>
+</html>

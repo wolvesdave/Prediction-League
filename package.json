@@ -1,12 +1,26 @@
 {
-  "name": "predictionleague",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+  "name": "prediction_league",
+  "version": "0.1.0",
+  "description": "App to manage a Premier League prediction league",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "~1.14.2",
+    "consolidate": "~0.13.1",
+    "express": "~4.13.3",
+    "fs": "0.0.1-security",
+    "http-post": "^0.1.1",
+    "moment": "^2.20.1",
+    "mongodb": "~3.6.0",
+    "nunjucks": "~2.2.0",
+    "request": "^2.83.0",
+    "xml2js": "^0.4.19"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "David Koppe",
+  "license": "Unlicensed",
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
 }

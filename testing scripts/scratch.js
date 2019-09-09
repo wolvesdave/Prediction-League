@@ -1,21 +1,20 @@
-var MongoClient = require('mongodb').MongoClient,
-    fs = require('fs'),
+var fs = require('fs'),
     assert = require('assert'),
     parseString = require('xml2js').parseString,
     request = require('request'),
-    http = require('http');
-
-http.post = require('http-post');
+    http = require('http'),
+    post = require('http-post'),
+    fixtureData = '';
 
     payload = {
       'ApiKey':'QQQMPBBYBPJYCVJCBHFRQMFVOCOSLBPPCXVGWLRKRRKAEACUXC',
       'seasonDateString':'1718',
-      'league':'Scottish Premier League'
+      'league':'Scottish Premier League',
+      'startDateString': '2017-12-01',
+      'endDateString' : '2017-12-31'
     };
 
-MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, db) {
-
-  http.post('http://www.xmlsoccer.com/FootballDataDemo.asmx/GetFixturesByLeagueAndSeason',
+  $http.post('http://www.xmlsoccer.com/FootballDataDemo.asmx/GetFixturesByDateIntervalAndLeague',
   payload, function(res){
 
       console.log(`STATUS: ${res.statusCode}`);
@@ -24,9 +23,18 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
 
       res.on('data', function(chunk) {
 
-        console.log("Here's a chunk: ", chunk);
+        fixtureData+= chunk;
 
-        parseString(chunk, function (err, result) {
+      });
+
+      res.on('end',function(){
+
+        parseString(fixtureData, function (err, result) {
+
+          if(err) {
+              console.log('Unknown Error');
+              return;
+            }
 
             var inputmatches = result["XMLSOCCER.COM"].Match,
                 outputmatches = [];
@@ -58,20 +66,10 @@ MongoClient.connect('mongodb://localhost:27017/predictionleague', function(err, 
               outputmatches.push(match);
             };
 
-            /* console.log(outputmatches); */
-
-            db.collection('fixtures').insertMany(outputmatches, function(err, r) {
-
-              assert.equal(null, err);
-              console.log('Fixtures inserted with result ', r);
-
-            });
-
+            predictions = outputmatches;
 
         });
 
       });
 
   });
-
-});

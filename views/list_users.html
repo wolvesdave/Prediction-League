@@ -1,0 +1,17 @@
+<!doctype HTML>
+<html ng-app="list_usersApp">
+  <head><title>List Prediction League Users</title></head>
+  <body>
+        <p>These are the users currently defined</p>
+        {% for user in users %}
+          <p>
+            <li>Name: <$user.name$></li>
+            <li>Email: <$user._id$></li>
+            <li>Total Score: <$user.totalScore$></li>
+            <li>Weekly Score: <$user.weeklyScore[0]$></li>
+            <li>Monthly Score: <$user.monthlyScore[0]$></li>
+          </p>
+        {% endfor %}
+        <a href="/">Home</a>
+  </body>
+</html>
